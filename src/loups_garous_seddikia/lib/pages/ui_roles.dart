@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import '../game.dart';
 import '../model/model_game.dart';
 
-class UI_roles extends StatefulWidget {
-  List<ModelPlayer> players = [];
-  UI_roles({this.players});
+class UIroles extends StatefulWidget {
+  final List<ModelPlayer> players ;
+  UIroles({this.players});
 
   @override
-  _UI_rolesState createState() => _UI_rolesState();
+  _UIrolesState createState() => _UIrolesState();
 }
 
-class _UI_rolesState extends State<UI_roles> {
+class _UIrolesState extends State<UIroles> {
   List<ModelRole> roles = [];
 
   listItem(ModelRole player) {

@@ -3,22 +3,22 @@ import '../game.dart';
 import '../model/model_game.dart';
 import 'ui_roles.dart';
 
-class UI_players extends StatefulWidget {
-  UI_players({Key key, this.title}) : super(key: key);
+class UIplayers extends StatefulWidget {
+  UIplayers({Key key, this.title}) : super(key: key);
   final String title;
   @override
-  _UI_playersState createState() => _UI_playersState();
+  _UIplayersState createState() => _UIplayersState();
 }
 
-class _UI_playersState extends State<UI_players> {
+class _UIplayersState extends State<UIplayers> {
   List<ModelPlayer> players = [];
   @override
     void initState() {
       // TODO: implement initState
       super.initState();
-      players.add(new ModelPlayer(name: "Salim", role: null));
-      players.add(new ModelPlayer(name: "Redoune", role: null));
-      players.add(new ModelPlayer(name: "Hakim", role: null));
+      GameEngine gameEngine = getIt<GameEngine>();
+      players = gameEngine.players;
+
 
     }
   @override
@@ -30,7 +30,7 @@ class _UI_playersState extends State<UI_players> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-             Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UI_roles(players: players)));
+             Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIroles(players: players)));
             },
           ),
         ],

@@ -1,9 +1,14 @@
-import 'dart:io';
 
+import 'package:get_it/get_it.dart';
 import './model/model_game.dart';
 
-class Game_engine {
-  final List<ModelPlayer> players;
+GetIt getIt = new GetIt();
+
+class GameEngine {
+  
+  List<ModelPlayer> players = [];
+  List<ModelRole> roles = [];
+  
   int playerIndex = -1;
 
   int nightCount = 0;
@@ -12,7 +17,7 @@ class Game_engine {
 
   List<ModelHistoric> historic;
 
-  Game_engine({this.players});
+  GameEngine();
 
   void next() {
     if (playerIndex == -1) switchDayNight();

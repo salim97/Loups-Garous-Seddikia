@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+
 import './pages/ui_players.dart';
 import 'game.dart';
+import './model/model_game.dart';
 
-//GetIt getIt = new GetIt();
+
 
 void main() {
-  //getIt.registerSingleton<Game_engine>(new Game_engine());
+  GameEngine gameEngine = new GameEngine();
+ 
+  gameEngine.players.add(new ModelPlayer(name: "Salim", role: null));
+  gameEngine.players.add(new ModelPlayer(name: "Redoune", role: null));
+  gameEngine.players.add(new ModelPlayer(name: "Hakim", role: null));
+  getIt.registerSingleton<GameEngine>(gameEngine);
   runApp(MyApp());
 }
 
@@ -28,7 +34,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: UI_players(title: 'Loups Garous Seddikia'),
+      home: UIplayers(title: 'Loups Garous Seddikia'),
       debugShowCheckedModeBanner: false,
     );
   }
