@@ -30,7 +30,7 @@ class _UIplayersState extends State<UIplayers> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-             Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIroles(players: players)));
+             Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIroles()));
             },
           ),
         ],

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../game.dart';
 import '../model/model_game.dart';
+import 'ui_role.dart';
 
 class UIroles extends StatefulWidget {
-  final List<ModelPlayer> players ;
-  UIroles({this.players});
+
 
   @override
   _UIrolesState createState() => _UIrolesState();
@@ -30,11 +30,22 @@ class _UIrolesState extends State<UIroles> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-             //Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UI_roles(players: players)));
+              //Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UI_roles(players: players)));
             },
           ),
         ],
       ),
+      body: GridView.count(
+        padding: const EdgeInsets.all(4.0),
+        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 10.0,
+        crossAxisCount: 3,
+        children: List.generate(RoleType.values.length, (index) {
+          return Center(child: UIrole(role: RoleType.values[index], max: getIt<GameEngine>().players.length,));
+          //return Center(child: UIrole(rolRoleType.values[i], max: getIt<GameEngine>().players.length));
+        }),
+      ),
+      /*
       body: ListView.builder(
           itemCount: this.roles.length,
           itemBuilder: (context, index) {
@@ -47,21 +58,25 @@ class _UIrolesState extends State<UIroles> {
               child: this.listItem(this.roles[index]),
             );
           }),
+
+          */
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final int roleIndex = await this._asyncListDialog(context);
-          bool alreadyExsits = false ;
-          roles.forEach( (role) {
-            if(role.roleType == RoleType.values[roleIndex])
-            { 
-              alreadyExsits = true ;
-              setState(() {   role.count++;  });
+          bool alreadyExsits = false;
+          roles.forEach((role) {
+            if (role.roleType == RoleType.values[roleIndex]) {
+              alreadyExsits = true;
+              setState(() {
+                role.count++;
+              });
             }
           });
-          if(!alreadyExsits)
-          setState(() {
-            roles.add(ModelRole(roleType: RoleType.values[roleIndex], count: 1));
-          });
+          if (!alreadyExsits)
+            setState(() {
+              roles.add(
+                  ModelRole(roleType: RoleType.values[roleIndex], count: 1));
+            });
         },
         tooltip: 'Add role',
         child: Icon(Icons.add),
@@ -85,7 +100,7 @@ class _UIrolesState extends State<UIroles> {
                 return ListTile(
                   title: Text(RoleType.values[index].toString()),
                   onTap: () {
-                      Navigator.of(context).pop(index);
+                    Navigator.of(context).pop(index);
                   },
                 );
               },
