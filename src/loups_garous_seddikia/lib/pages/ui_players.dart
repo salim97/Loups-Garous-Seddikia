@@ -1,59 +1,103 @@
 import 'package:flutter/material.dart';
+import '../game.dart';
+import '../model/model_game.dart';
+import 'ui_roles.dart';
 
 class UI_players extends StatefulWidget {
-  UI_players({
-    Key key,
-    this.title
-  }): super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
+  UI_players({Key key, this.title}) : super(key: key);
   final String title;
-
   @override
   _UI_playersState createState() => _UI_playersState();
 }
 
-class _UI_playersState extends State < UI_players > {
-  final List < String > players = ["Salim", "hakim", "Redoune", "Jalil", "Bebe fuck"];
+class _UI_playersState extends State<UI_players> {
+  List<ModelPlayer> players = [];
+  @override
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+      players.add(new ModelPlayer(name: "Salim", role: null));
+      players.add(new ModelPlayer(name: "Redoune", role: null));
+      players.add(new ModelPlayer(name: "Hakim", role: null));
 
-  _addItem(String name) {
+    }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.done),
+            onPressed: () {
+             Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UI_roles(players: players)));
+            },
+          ),
+        ],
+      ),
+
+      body: ListView.builder(
+          itemCount: this.players.length,
+          itemBuilder: (context, index) {
+            return Dismissible(
+              key: Key(this.players[index].name),
+              onDismissed: (direction) {
+                Scaffold.of(context).showSnackBar(new SnackBar(
+                  content: Text(players[index].name + " khroj 9awed"),
+                ));
+
+                players.removeAt(index);
+              },
+              background: Container(color: Colors.red),
+              child: this.listItem(this.players[index]),
+            );
+          }),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final String currentTeam = await this._asyncInputDialog(context);
+          if (currentTeam.isEmpty) return;
+          setState(() {
+            players.add(ModelPlayer(name: currentTeam, role: null));
+          });
+        },
+        tooltip: 'Add player',
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    
+    );
+  }
+
+  listItem(ModelPlayer player) {
     return ListTile(
       leading: Icon(Icons.tag_faces),
-      title: Text(name),
+      title: Text(player.name),
       trailing: Icon(Icons.edit),
     );
   }
 
-  Future < String > _asyncInputDialog(BuildContext context) async {
+  Future<String> _asyncInputDialog(BuildContext context) async {
     String teamName = '';
-    return showDialog < String > (
+    return showDialog<String>(
       context: context,
-      barrierDismissible: false, // dialog is dismissible with a tap on the barrier
+      barrierDismissible:
+          false, // dialog is dismissible with a tap on the barrier
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Add new player'),
           content: new Row(
-            children: < Widget > [
+            children: <Widget>[
               new Expanded(
-                child: new TextField(
-                  autofocus: true,
-                  decoration: new InputDecoration(
-                    labelText: 'Player name'),
-                  onChanged: (value) {
-                    teamName = value;
-                  },
-                ))
+                  child: new TextField(
+                autofocus: true,
+                decoration: new InputDecoration(labelText: 'Player name'),
+                onChanged: (value) {
+                  teamName = value;
+                },
+              ))
             ],
           ),
-          actions: < Widget > [
+          actions: <Widget>[
             FlatButton(
               child: Text('Ok'),
               onPressed: () {
@@ -63,61 +107,6 @@ class _UI_playersState extends State < UI_players > {
           ],
         );
       },
-    );
-  }
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-        actions: < Widget > [
-          IconButton(
-            icon: Icon(Icons.done),
-            onPressed: () {
-              // null
-            },
-          ),
-        ],
-      ),
-
-      body: ListView.builder(
-        itemCount: this.players.length,
-        itemBuilder: (context, index) {
-          return Dismissible(
-            key: Key(this.players[index]),
-            onDismissed: (direction) {
-             
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: Text(players[index] + " khroj 9awed"),
-              ));
-
-              players.removeAt(index);
-            },
-            background: Container(color: Colors.red),
-            child: this._addItem(this.players[index]),
-          );
-        }
-      ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final String currentTeam = await this._asyncInputDialog(context);
-          if(currentTeam.isEmpty) return ;
-          setState(() {
-            players.add(currentTeam);
-          });
-        },
-        tooltip: 'Add player',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

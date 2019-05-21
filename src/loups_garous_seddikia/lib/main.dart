@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import './pages/ui_players.dart';
+import 'game.dart';
 
-void main() => runApp(MyApp());
+//GetIt getIt = new GetIt();
+
+void main() {
+  //getIt.registerSingleton<Game_engine>(new Game_engine());
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -26,4 +33,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
