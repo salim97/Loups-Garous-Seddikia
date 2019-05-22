@@ -1,14 +1,13 @@
-
 import 'package:get_it/get_it.dart';
+import 'dart:math';
 import './model/model_game.dart';
 
 GetIt getIt = new GetIt();
 
 class GameEngine {
-  
   List<ModelPlayer> players = [];
   List<ModelRole> roles = [];
-  
+
   int playerIndex = -1;
 
   int nightCount = 0;
@@ -18,6 +17,23 @@ class GameEngine {
   List<ModelHistoric> historic;
 
   GameEngine();
+
+  void initGame() {
+    print(players.length);
+    print(roles.length);
+    Random rand = new Random();
+    int randValue, max;
+    players.forEach((player) {
+      max = roles.length - 1;
+      if (max == 0)
+        randValue = 0;
+      else
+        randValue = rand.nextInt(max);
+
+      player.role = roles[randValue];
+      roles.removeAt(randValue);
+    });
+  }
 
   void next() {
     if (playerIndex == -1) switchDayNight();
@@ -105,9 +121,8 @@ class GameEngine {
   }
 
   void processHistoric() {
-    historic.forEach((historic) {
-
-      
-    });
+    historic.forEach((historic) {});
   }
+
+
 }

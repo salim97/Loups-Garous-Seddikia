@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import '../game.dart';
 import '../model/model_game.dart';
 import 'ui_role.dart';
+import 'ui_config.dart';
 
 class UIroles extends StatefulWidget {
-
-
   @override
   _UIrolesState createState() => _UIrolesState();
 }
@@ -30,7 +29,8 @@ class _UIrolesState extends State<UIroles> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-              //Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UI_roles(players: players)));
+              //getIt<GameEngine>().initGame();
+              Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIconfig()));
             },
           ),
         ],
@@ -41,7 +41,10 @@ class _UIrolesState extends State<UIroles> {
         mainAxisSpacing: 10.0,
         crossAxisCount: 3,
         children: List.generate(RoleType.values.length, (index) {
-          return Center(child: UIrole(role: RoleType.values[index], max: getIt<GameEngine>().players.length,));
+          return Center(
+              child: UIrole(
+            role: RoleType.values[index],
+          ));
           //return Center(child: UIrole(rolRoleType.values[i], max: getIt<GameEngine>().players.length));
         }),
       ),
@@ -82,10 +85,10 @@ class _UIrolesState extends State<UIroles> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  
   }
 
   Future<int> _asyncListDialog(BuildContext context) async {
-    int roleIndex;
     return showDialog<int>(
       context: context,
       barrierDismissible:

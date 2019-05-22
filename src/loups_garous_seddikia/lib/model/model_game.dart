@@ -1,20 +1,17 @@
 enum RoleType { werewolf, seer, witch, hunter }
 enum ActionType { kill, heal, protect, bind, see }
+
+Map<RoleType, ModelRole> modelRoleMap = new Map();
+
 class ModelRole {
   RoleType roleType;
   String description;
-  bool kill ;  // TODO : remove
-  bool protect ; // TODO : remove
-  bool heal ; // TODO : remove
-  bool see ; // TODO : remove
+  String image;
   int count  ;
   ModelRole({
     this.roleType,
-    this.description,
-    this.kill = false,
-    this.protect = false ,
-    this.heal = false,
-    this.see = false,
+    this.description= "",
+    this.image = "",
     this.count = 0,
   });
 }

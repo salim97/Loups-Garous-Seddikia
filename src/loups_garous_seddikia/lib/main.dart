@@ -13,6 +13,11 @@ void main() {
   gameEngine.players.add(new ModelPlayer(name: "Redoune", role: null));
   gameEngine.players.add(new ModelPlayer(name: "Hakim", role: null));
   getIt.registerSingleton<GameEngine>(gameEngine);
+  modelRoleMap[RoleType.werewolf] = new ModelRole(roleType: RoleType.werewolf, image: "images/alpha_werewolf.png", description: "ydiro vote binathom w yakatlo wahed");
+  modelRoleMap[RoleType.hunter] = new ModelRole(roleType: RoleType.hunter, image: "images/assets_images_roles_png_icon_hunter.png", description: "kiymout yaktol m3ah wahed");
+  modelRoleMap[RoleType.witch] = new ModelRole(roleType: RoleType.witch, image: "images/assets_images_roles_png_icon_witch.png", description: "taktol khatra, thayi felil khatra");
+  modelRoleMap[RoleType.seer] = new ModelRole(roleType: RoleType.seer, image: "images/assets_images_roles_png_icon_seer.png", description: "flil tchouf role ta3 wahed");
+
   runApp(MyApp());
 }
 
