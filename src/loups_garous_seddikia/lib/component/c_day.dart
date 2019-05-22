@@ -53,7 +53,7 @@ class _CdayState extends State<Cday> {
                     height: 30,
                   ),
                   Text(
-                    "Morning has come, the village awakes. \nHand the devicec to the game master.",
+                    "Morning has come, the village awakes. \nHand the device to the game master.",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
