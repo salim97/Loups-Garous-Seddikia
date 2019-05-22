@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './pages/ui_players.dart';
+import './pages/ui_game.dart';
 import 'game.dart';
 import './model/model_game.dart';
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: UIplayers(title: 'Loups Garous Seddikia'),
+      home: UIgame(),//UIplayers(title: 'Loups Garous Seddikia'),
       debugShowCheckedModeBanner: false,
     );
   }

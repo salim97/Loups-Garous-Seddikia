@@ -13,14 +13,13 @@ class UIplayers extends StatefulWidget {
 class _UIplayersState extends State<UIplayers> {
   List<ModelPlayer> players = [];
   @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      GameEngine gameEngine = getIt<GameEngine>();
-      players = gameEngine.players;
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    GameEngine gameEngine = getIt<GameEngine>();
+    players = gameEngine.players;
+  }
 
-
-    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +29,7 @@ class _UIplayersState extends State<UIplayers> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-             Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIroles()));
+              Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIroles()));
             },
           ),
         ],
@@ -64,7 +63,6 @@ class _UIplayersState extends State<UIplayers> {
         tooltip: 'Add player',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    
     );
   }
 
@@ -80,8 +78,7 @@ class _UIplayersState extends State<UIplayers> {
     String teamName = '';
     return showDialog<String>(
       context: context,
-      barrierDismissible:
-          false, // dialog is dismissible with a tap on the barrier
+      barrierDismissible: false, // dialog is dismissible with a tap on the barrier
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Add new player'),
@@ -109,5 +106,4 @@ class _UIplayersState extends State<UIplayers> {
       },
     );
   }
-
 }

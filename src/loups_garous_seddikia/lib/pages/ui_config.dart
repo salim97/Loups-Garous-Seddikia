@@ -8,7 +8,7 @@ class UIconfig extends StatefulWidget {
 }
 
 class _UIconfigState extends State<UIconfig> {
-    Map<String, bool> general = {
+  Map<String, bool> general = {
     'Reveal role when player dies': true,
     'No killing during the first night': true,
     'Players can skip voting': true,
@@ -33,13 +33,13 @@ class _UIconfigState extends State<UIconfig> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: RaisedButton(
-                child: const Text('START GAME'),
-                color: Colors.pinkAccent,
-                onPressed: () {
-                  print("KHRA");
-                },
-              ),
+        child: const Text('START GAME'),
+        color: Colors.pinkAccent,
+        onPressed: () {
+          print("KHRA");
+        },
+      ),
+    
     );
-  
   }
 }
