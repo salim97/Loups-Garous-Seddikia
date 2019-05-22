@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loups_garous_seddikia/pages/ui_game.dart';
 import '../game.dart';
 import '../model/model_game.dart';
 
@@ -25,7 +26,7 @@ class _UIconfigState extends State<UIconfig> {
             value: general[key],
             onChanged: (bool value) {
               setState(() {
-                general[key] = value;
+                general[key] = value ;
               });
             },
           );
@@ -36,7 +37,12 @@ class _UIconfigState extends State<UIconfig> {
         child: const Text('START GAME'),
         color: Colors.pinkAccent,
         onPressed: () {
-          print("KHRA");
+          getIt<GameEngine>().reveal_role_when_player_dies = general["Reveal role when player dies"] ;
+          getIt<GameEngine>().no_killing_during_the_first_night = general["No killing during the first night"] ;
+          getIt<GameEngine>().players_can_skip_voting = general["Players can skip voting"] ;
+          getIt<GameEngine>().hide_number_of_votes = general["Hide Number of votes"] ;
+
+          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIgame()));
         },
       ),
     

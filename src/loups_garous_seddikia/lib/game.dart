@@ -13,6 +13,11 @@ class GameEngine {
   int nightCount = 0;
   int dayCount = 0;
   bool isItNight = false;
+  // global config
+  bool hide_number_of_votes ;
+  bool players_can_skip_voting ;
+  bool no_killing_during_the_first_night ;
+  bool reveal_role_when_player_dies ;
 
   List<ModelHistoric> historic;
 

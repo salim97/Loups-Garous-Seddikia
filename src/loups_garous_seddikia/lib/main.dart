@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: UIgame(),//UIplayers(title: 'Loups Garous Seddikia'),
+      home: UIplayers(title: 'Loups Garous Seddikia'),
       debugShowCheckedModeBanner: false,
     );
   }

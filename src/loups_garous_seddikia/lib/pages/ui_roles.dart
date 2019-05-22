@@ -48,7 +48,11 @@ class _UIrolesState extends State<UIroles> {
           //return Center(child: UIrole(rolRoleType.values[i], max: getIt<GameEngine>().players.length));
         }),
       ),
-      /*
+    );
+  }
+}
+//old code
+/*
       body: ListView.builder(
           itemCount: this.roles.length,
           itemBuilder: (context, index) {
@@ -85,11 +89,6 @@ class _UIrolesState extends State<UIroles> {
         tooltip: 'Add role',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    */
-    );
-  
-  }
-
   Future<int> _asyncListDialog(BuildContext context) async {
     return showDialog<int>(
       context: context,
@@ -113,4 +112,5 @@ class _UIrolesState extends State<UIroles> {
       },
     );
   }
-}
+
+*/

@@ -70,35 +70,58 @@ class _UIplayersState extends State<UIplayers> {
     return ListTile(
       leading: Icon(Icons.tag_faces),
       title: Text(player.name),
-      trailing: Icon(Icons.edit),
+      trailing: IconButton(
+        icon: Icon(Icons.edit),
+        onPressed: () async {
+          final String currentTeam = await this._asyncInputDialog(context, username: player.name);
+          if (currentTeam.isEmpty) return;
+          setState(() {
+            player.name = currentTeam;
+          });
+        },
+      ),
     );
   }
 
-  Future<String> _asyncInputDialog(BuildContext context) async {
-    String teamName = '';
+  Future<String> _asyncInputDialog(BuildContext context, {String username = ""}) async {
+    TextEditingController _controller = new TextEditingController(text: username);
+
     return showDialog<String>(
       context: context,
       barrierDismissible: false, // dialog is dismissible with a tap on the barrier
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Add new player'),
+          title: Text(username.isEmpty ? "Add new player" : "Edit player name"),
           content: new Row(
             children: <Widget>[
               new Expanded(
                   child: new TextField(
                 autofocus: true,
-                decoration: new InputDecoration(labelText: 'Player name'),
-                onChanged: (value) {
-                  teamName = value;
-                },
+                decoration: new InputDecoration(
+                  labelText: 'Player name',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      Icons.clear,
+                      size: 20.0,
+                    ),
+                    onPressed: () => _controller.text="",
+                  ),
+                ),
+                controller: _controller,
               ))
             ],
           ),
           actions: <Widget>[
             FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop("");
+              },
+            ),
+            FlatButton(
               child: Text('Ok'),
               onPressed: () {
-                Navigator.of(context).pop(teamName);
+                Navigator.of(context).pop(_controller.text);
               },
             ),
           ],

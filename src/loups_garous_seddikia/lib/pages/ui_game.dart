@@ -25,11 +25,36 @@ class _UIgameState extends State<UIgame> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(title: new Text('Loups Garous Seddikia')),
-        body: IndexedStack(index: indexedStack, children: <Widget>[
-          Cnight(readyClicked: readyclickedNight),
-          Cday(readyClicked: readyclickedDay),
-        ]));
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+          child: new Scaffold(
+        
+          appBar: new AppBar(
+            title: new Text('Loups Garous Seddikia'),
+              leading: new Container(),),
+          body: IndexedStack(index: indexedStack, children: <Widget>[
+            Cnight(readyClicked: readyclickedNight),
+            Cday(readyClicked: readyclickedDay),
+          ])),
+    );
+  }
+
+  Future<bool> _onBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Do you want to stop this game ?"),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("No"),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          FlatButton(
+            child: Text("Yes"),
+            onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
+          ),
+        ],
+      )
+    );
   }
 }
