@@ -3,6 +3,7 @@ import '../game.dart';
 import '../model/model_game.dart';
 import '../component/c_night.dart';
 import '../component/c_day.dart';
+import '../component/c_day_vote.dart';
 
 class UIgame extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class UIgame extends StatefulWidget {
 class _UIgameState extends State<UIgame> {
   int indexedStack = 0;
   void readyclickedNight() {
+    print("readyclickedNight") ;
     setState(() {
       indexedStack = 1;
     });
@@ -19,7 +21,7 @@ class _UIgameState extends State<UIgame> {
 
   void readyclickedDay() {
     setState(() {
-      indexedStack = 0;
+      indexedStack = 2;
     });
   }
 
@@ -33,9 +35,11 @@ class _UIgameState extends State<UIgame> {
             title: new Text('Loups Garous Seddikia'),
               leading: new Container(),),
           body: IndexedStack(index: indexedStack, children: <Widget>[
-            Cnight(readyClicked: readyclickedNight),
-            Cday(readyClicked: readyclickedDay),
-          ])),
+              Cnight(readyClicked: readyclickedNight),
+              Cday(readyClicked: readyclickedDay),
+              CdayVote()
+            ]),
+          ),
     );
   }
 

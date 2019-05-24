@@ -46,22 +46,22 @@ class _CnightState extends State<Cnight> {
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 25.0,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 30.0,
                   ),
                   Text(
                     "Night has come, all players close their eyes and go to sleep.",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 20.0,
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 30.0,
                   ),
                   Text(
                     "The game master receives the device, views his role, and gives the device to the next player once finished.",
@@ -83,7 +83,7 @@ class _CnightState extends State<Cnight> {
                 ),
               ),
               color: Colors.pinkAccent,
-              onPressed: () => widget.readyClicked(),
+              onPressed: () => widget.readyClicked() ,
             ),
           ),
           Image.asset(
@@ -91,6 +91,7 @@ class _CnightState extends State<Cnight> {
           ),
         ],
       ),
+    
     );
   }
 }

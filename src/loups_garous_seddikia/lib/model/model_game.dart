@@ -6,6 +6,7 @@ Map<RoleType, ModelRole> modelRoleMap = new Map();
 class ModelRole {
   RoleType roleType;
   String description;
+  String msg ;
   String image;
   int count  ;
   ModelRole({
@@ -13,6 +14,7 @@ class ModelRole {
     this.description= "",
     this.image = "",
     this.count = 0,
+    this.msg
   });
 }
 
