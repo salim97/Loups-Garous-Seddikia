@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loups_garous_seddikia/component/c_grid_players.dart';
+import '../game.dart';
 
 class Cnight extends StatefulWidget {
   final VoidCallback readyClicked;
@@ -9,7 +11,7 @@ class Cnight extends StatefulWidget {
 
 class _CnightState extends State<Cnight> {
   int counter = 1;
-
+  
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -27,13 +29,12 @@ class _CnightState extends State<Cnight> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-           Padding(
+          Padding(
             padding: EdgeInsets.all(10.0),
-                      child: Image.asset(
+            child: Image.asset(
               "images/assets_images_moon.png",
             ),
           ),
-        
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(20.0),
@@ -83,7 +84,7 @@ class _CnightState extends State<Cnight> {
                 ),
               ),
               color: Colors.pinkAccent,
-              onPressed: () => widget.readyClicked() ,
+              onPressed: () => widget.readyClicked(),
             ),
           ),
           Image.asset(
@@ -91,7 +92,6 @@ class _CnightState extends State<Cnight> {
           ),
         ],
       ),
-    
     );
   }
 }

@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import '../model/model_game.dart';
 import '../game.dart';
+import 'c_grid_players.dart';
 
-class CdayVote extends StatelessWidget {
+class CdayVote extends StatefulWidget {
   List<ModelPlayer> players = [];
-  int _index = 0;
-  int _tmp = -1 ;
+
   CdayVote() {
     players = getIt<GameEngine>().players;
   }
 
+  @override
+  _CdayVoteState createState() => _CdayVoteState();
+}
+
+class _CdayVoteState extends State<CdayVote> {
+  int _index = 0;
+
+  int _tmp = -1;
+
+incrementIndex() {
+  if( _index+1 < widget.players.length)
+    setState(() =>  _index++ );
+  else
+    setState(() =>  _index= 0 );
+  }
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -19,7 +34,7 @@ class CdayVote extends StatelessWidget {
           children: <Widget>[
             Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Center(child: SizedBox(height: 150.0, width: 150.0, child: CircleAvatar(child: Icon(Icons.tag_faces, size: 150.0))))),
+                child: Center(child: SizedBox(height: 150.0, width: 150.0, child: CircleAvatar(backgroundImage: ExactAssetImage('images/assets_images_ic_person_white_160px_with_background.png'))))),
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Column(
@@ -27,7 +42,7 @@ class CdayVote extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      players[_index].name + " votes",
+                      widget.players[_index].name + " votes",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.white,
@@ -48,36 +63,7 @@ class CdayVote extends StatelessWidget {
                 ],
               ),
             ),
-            GridView.count(
-              padding: const EdgeInsets.all(4.0),
-              physics: ScrollPhysics(), // to disable GridView's scrolling
-              shrinkWrap: true,
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 10.0,
-              crossAxisCount: 2,
-              children: List.generate(players.length-1, (index) {
-                _tmp++;
-                if(_tmp == _index)
-                _tmp++;
-                return Center(
-                    child: Column(children: <Widget>[
-                  SizedBox(
-                      height: 80.0,
-                      width: 80.0,
-                      child: CircleAvatar(
-                          child: Icon(
-                        Icons.tag_faces,
-                        size: 80.0,
-                      ))),
-                      SizedBox(height: 10.0,),
-                      Text(players[_tmp].name, style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),)
-                ]));
-                //return Center(child: UIrole(rolRoleType.values[i], max: getIt<GameEngine>().players.length));
-              }),
-            ),
+            CgridPlayers(skipplayer: widget.players[_index]),
             Center(
               child: RaisedButton(
                 child: const Text(
@@ -87,7 +73,7 @@ class CdayVote extends StatelessWidget {
                   ),
                 ),
                 color: Colors.blue,
-                onPressed: () => null,
+                onPressed: () => incrementIndex(),
               ),
             ),
           ],

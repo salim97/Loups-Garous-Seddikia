@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loups_garous_seddikia/component/c_grid_players.dart';
 import '../game.dart';
 import '../model/model_game.dart';
 import '../component/c_night.dart';
@@ -35,6 +36,7 @@ class _UIgameState extends State<UIgame> {
             title: new Text('Loups Garous Seddikia'),
               leading: new Container(),),
           body: IndexedStack(index: indexedStack, children: <Widget>[
+              
               Cnight(readyClicked: readyclickedNight),
               Cday(readyClicked: readyclickedDay),
               CdayVote()

@@ -4,7 +4,7 @@ import './pages/ui_players.dart';
 import './pages/ui_game.dart';
 import 'game.dart';
 import './model/model_game.dart';
-
+import './component/c_grid_players.dart';
 void main() {
   GameEngine gameEngine = new GameEngine();
 
