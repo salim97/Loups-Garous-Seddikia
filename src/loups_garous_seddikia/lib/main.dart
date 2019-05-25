@@ -5,13 +5,10 @@ import './pages/ui_game.dart';
 import 'game.dart';
 import './model/model_game.dart';
 import './component/c_grid_players.dart';
+
 void main() {
   GameEngine gameEngine = new GameEngine();
 
-  gameEngine.players.add(new ModelPlayer(name: "Salim", role: null));
-  gameEngine.players.add(new ModelPlayer(name: "Redoune", role: null));
-  gameEngine.players.add(new ModelPlayer(name: "Hakim", role: null));
-  getIt.registerSingleton<GameEngine>(gameEngine);
   modelRoleMap[RoleType.werewolf] = new ModelRole(
       roleType: RoleType.werewolf,
       image: "images/alpha_werewolf.png",
@@ -32,6 +29,14 @@ void main() {
       image: "images/assets_images_roles_png_icon_seer.png",
       description: "flil tchouf role ta3 wahed",
       msg: "Select a player to view their role");
+
+  gameEngine.players.add(new ModelPlayer(name: "Salim", role: modelRoleMap[RoleType.werewolf]));
+  gameEngine.players.add(new ModelPlayer(name: "Redoune", role: modelRoleMap[RoleType.seer]));
+  gameEngine.players.add(new ModelPlayer(name: "Hakim", role: modelRoleMap[RoleType.hunter]));
+  gameEngine.players.add(new ModelPlayer(name: "Jalil", role: modelRoleMap[RoleType.witch]));
+  gameEngine.players.add(new ModelPlayer(name: "Nadir", role: modelRoleMap[RoleType.werewolf]));
+  gameEngine.players.add(new ModelPlayer(name: "Bebe fuck", role: modelRoleMap[RoleType.werewolf]));
+  getIt.registerSingleton<GameEngine>(gameEngine);
 
   runApp(MyApp());
 }
@@ -54,7 +59,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: UIgame(),// UIplayers(title: 'Loups Garous Seddikia'),
+      home: UIgame(), // UIplayers(title: 'Loups Garous Seddikia'),
       debugShowCheckedModeBanner: false,
     );
   }

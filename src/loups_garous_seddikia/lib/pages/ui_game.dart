@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loups_garous_seddikia/component/c_grid_players.dart';
+import 'package:loups_garous_seddikia/component/c_day_resulte.dart';
 import '../game.dart';
 import '../model/model_game.dart';
 import '../component/c_night.dart';
@@ -26,6 +27,12 @@ class _UIgameState extends State<UIgame> {
     });
   }
 
+  void callBackVoteDone() {
+    setState(() {
+      indexedStack = 3;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -39,7 +46,8 @@ class _UIgameState extends State<UIgame> {
               
               Cnight(readyClicked: readyclickedNight),
               Cday(readyClicked: readyclickedDay),
-              CdayVote()
+              CdayVote(callBackDone: callBackVoteDone,),
+              CdayResulte(callBackDone: readyclickedDay,) ,
             ]),
           ),
     );

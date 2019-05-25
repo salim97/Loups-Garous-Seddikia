@@ -1,5 +1,5 @@
 enum RoleType { werewolf, seer, witch, hunter }
-enum ActionType { kill, heal, protect, bind, see }
+enum ActionType { kill, heal, protect, bind, see, vote }
 
 Map<RoleType, ModelRole> modelRoleMap = new Map();
 
@@ -22,10 +22,12 @@ class ModelPlayer {
   String name;
   ModelRole role;
   bool isDead;
+  int vote;
   ModelPlayer({
     this.name,
     this.role,
     this.isDead = false,
+    this.vote = 0,
   });
 }
 

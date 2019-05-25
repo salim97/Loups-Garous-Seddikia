@@ -122,12 +122,12 @@ class Page02 extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-         Padding(
-            padding: EdgeInsets.all(10.0),
-                      child: Image.asset(
-              player.role.image,
+          Padding(
+              padding: EdgeInsets.all(10.0),
+                        child: Image.asset(
+                player.role.image,
+              ),
             ),
-          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(20.0),

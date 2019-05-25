@@ -5,9 +5,9 @@ import 'c_grid_players.dart';
 
 class CdayVote extends StatefulWidget {
   List<ModelPlayer> players = [];
-
-  CdayVote() {
-    players = getIt<GameEngine>().players;
+  final VoidCallback callBackDone;
+  CdayVote({this.callBackDone}){
+      players = getIt<GameEngine>().players;
   }
 
   @override
@@ -17,16 +17,41 @@ class CdayVote extends StatefulWidget {
 class _CdayVoteState extends State<CdayVote> {
   int _index = 0;
 
-  int _tmp = -1;
-
-incrementIndex() {
-  if( _index+1 < widget.players.length)
-    setState(() =>  _index++ );
-  else
-    setState(() =>  _index= 0 );
+  int _currentIndex = -1;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  
   }
+  
+  _reset()
+  {
+    widget.players.forEach( (player) => player.vote = 0 );
+     setState(() {
+_index = 0;
+        _currentIndex = -1;
+     });
+  }
+
+  incrementIndex() {
+    if (_index + 1 < widget.players.length)
+      setState(() {
+        _index++;
+        _currentIndex = -1;
+      });
+    else {
+      widget.callBackDone();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+      if(_index >= widget.players.length)
+      {
+        print("/*------------------------------------------*/");
+        _reset();
+      }
     return new Container(
         decoration: new BoxDecoration(color: Colors.pinkAccent),
         child: ListView(
@@ -34,7 +59,11 @@ incrementIndex() {
           children: <Widget>[
             Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Center(child: SizedBox(height: 150.0, width: 150.0, child: CircleAvatar(backgroundImage: ExactAssetImage('images/assets_images_ic_person_white_160px_with_background.png'))))),
+                child: Center(
+                    child: SizedBox(
+                        height: 150.0,
+                        width: 150.0,
+                        child: CircleAvatar(backgroundImage: ExactAssetImage('images/assets_images_ic_person_white_160px_with_background.png'))))),
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Column(
@@ -63,19 +92,7 @@ incrementIndex() {
                 ],
               ),
             ),
-            CgridPlayers(skipplayer: widget.players[_index]),
-            Center(
-              child: RaisedButton(
-                child: const Text(
-                  'VOTE',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                color: Colors.blue,
-                onPressed: () => incrementIndex(),
-              ),
-            ),
+            CgridPlayers(skipplayer: widget.players[_index], callBackDone: () => incrementIndex()),
           ],
         ));
   }

@@ -7,6 +7,7 @@ GetIt getIt = new GetIt();
 class GameEngine {
   List<ModelPlayer> players = [];
   List<ModelRole> roles = [];
+  List<ModelHistoric> actionList = [];
 
   int playerIndex = -1;
 
