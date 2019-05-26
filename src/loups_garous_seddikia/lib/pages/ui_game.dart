@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loups_garous_seddikia/component/c_grid_players.dart';
-import 'package:loups_garous_seddikia/component/c_day_resulte.dart';
+import 'package:provider/provider.dart';
 import '../game.dart';
-import '../model/model_game.dart';
-import '../component/c_night.dart';
-import '../component/c_day.dart';
-import '../component/c_day_vote.dart';
 
 class UIgame extends StatefulWidget {
   @override
@@ -35,6 +30,8 @@ class _UIgameState extends State<UIgame> {
 
   @override
   Widget build(BuildContext context) {
+    final GameEngine gameEngine = Provider.of<GameEngine>(context);
+    print("--------------- _UIgameState") ;
     return WillPopScope(
       onWillPop: _onBackPressed,
           child: new Scaffold(
@@ -42,13 +39,15 @@ class _UIgameState extends State<UIgame> {
           appBar: new AppBar(
             title: new Text('Loups Garous Seddikia'),
               leading: new Container(),),
-          body: IndexedStack(index: indexedStack, children: <Widget>[
+          body: gameEngine.currentWidget
+          /*
+          IndexedStack(index: indexedStack, children: <Widget>[
               
               Cnight(readyClicked: readyclickedNight),
               Cday(readyClicked: readyclickedDay),
               CdayVote(callBackDone: callBackVoteDone,),
               CdayResulte(callBackDone: readyclickedDay,) ,
-            ]),
+            ]),*/
           ),
     );
   }

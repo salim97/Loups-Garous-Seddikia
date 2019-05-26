@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loups_garous_seddikia/model/model_game.dart';
+import 'package:provider/provider.dart';
+
+import '../game.dart';
 
 class Cday extends StatefulWidget {
-  final VoidCallback readyClicked;
-  Cday({this.readyClicked});
   @override
   _CdayState createState() => _CdayState();
 }
@@ -16,7 +18,7 @@ class _CdayState extends State<Cday> {
       decoration: new BoxDecoration(
         gradient: new LinearGradient(
             //colors: [const Color(0xFF915FB5),const Color(0xFFCA436B)],
-            colors: [const Color(0xFF717DC5 ), const Color(0x003241A0)],
+            colors: [const Color(0xFF717DC5), const Color(0x003241A0)],
             begin: FractionalOffset.topCenter,
             end: FractionalOffset.bottomCenter,
             stops: [0.0, 1.0],
@@ -29,7 +31,7 @@ class _CdayState extends State<Cday> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(10.0),
-                      child: Image.asset(
+            child: Image.asset(
               "images/assets_images_sun.png",
             ),
           ),
@@ -72,7 +74,7 @@ class _CdayState extends State<Cday> {
                 ),
               ),
               color: Colors.pinkAccent,
-              onPressed: () => widget.readyClicked(),
+              onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.morning_vote,
             ),
           ),
           Image.asset(

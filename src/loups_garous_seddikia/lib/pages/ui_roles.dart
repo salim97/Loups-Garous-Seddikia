@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../game.dart';
 import '../model/model_game.dart';
 import 'ui_role.dart';
@@ -22,6 +23,7 @@ class _UIrolesState extends State<UIroles> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: new Text("Roles"),
@@ -29,7 +31,7 @@ class _UIrolesState extends State<UIroles> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-              //getIt<GameEngine>().initGame();
+              Provider.of<GameEngine>(context).initGame();
               Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIconfig()));
             },
           ),

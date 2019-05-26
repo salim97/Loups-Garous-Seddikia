@@ -1,28 +1,91 @@
-import 'package:get_it/get_it.dart';
 import 'dart:math';
+
+import 'package:get_it/get_it.dart';
+import 'package:flutter/material.dart';
+
 import './model/model_game.dart';
+import 'component/c_day.dart';
+import 'component/c_day_resulte.dart';
+import 'component/c_day_vote.dart';
 
 GetIt getIt = new GetIt();
 
-class GameEngine {
+class GameEngine extends ChangeNotifier {
   List<ModelPlayer> players = [];
   List<ModelRole> roles = [];
   List<ModelHistoric> actionList = [];
+  List<ModelHistoric> historic = [];
 
-  int playerIndex = -1;
+  Widget _currentWidget;
+  Widget get currentWidget => _currentWidget;
+  set currentWidget(Widget val) {
+    _currentWidget = val;
+    notifyListeners();
+  }
 
-  int nightCount = 0;
-  int dayCount = 0;
-  bool isItNight = false;
+  GameState _gamestate;
+  GameState get gamestate => _gamestate;
+  set gamestate(GameState val) {
+    _gamestate = val;
+    updateCurrentWidget();
+    notifyListeners();
+  }
+
+  int _playerIndex = -1;
+  int get playerIndex => _playerIndex;
+  set playerIndex(int val) {
+    _playerIndex = val;
+    notifyListeners();
+  }
+
   // global config
-  bool hide_number_of_votes ;
-  bool players_can_skip_voting ;
-  bool no_killing_during_the_first_night ;
-  bool reveal_role_when_player_dies ;
+  bool hide_number_of_votes = true;
+  bool players_can_skip_voting = true;
+  bool no_killing_during_the_first_night = true;
+  bool reveal_role_when_player_dies = true;
 
-  List<ModelHistoric> historic;
+  GameEngine() {
+    gamestate = GameState.morning_splash;
 
-  GameEngine();
+    initRandomData();
+  }
+
+  void updateCurrentWidget() {
+    if (gamestate == GameState.morning_splash) currentWidget =  Cday();
+    if (gamestate == GameState.morning_vote) currentWidget = CdayVote();
+    if (gamestate == GameState.morning_result) currentWidget = CdayResulte();
+  }
+
+  void initRandomData() {
+    modelRoleMap[RoleType.werewolf] = new ModelRole(
+        roleType: RoleType.werewolf,
+        image: "images/alpha_werewolf.png",
+        description: "ydiro vote binathom w yakatlo wahed",
+        msg: "Select a player to kill? The other werewolves will see your vote. if the vote is tied, a random victim will be selected.");
+    modelRoleMap[RoleType.hunter] = new ModelRole(
+        roleType: RoleType.hunter,
+        image: "images/assets_images_roles_png_icon_hunter.png",
+        description: "kiymout yaktol m3ah wahed",
+        msg: "In case you die this round, select a player you would like to kill");
+    modelRoleMap[RoleType.witch] = new ModelRole(
+        roleType: RoleType.witch,
+        image: "images/assets_images_roles_png_icon_witch.png",
+        description: "taktol khatra, thayi felil khatra",
+        msg: "Use the poison to kill a player, or the elixir to save the victim of the werewolves this night. you have each potion only once");
+    modelRoleMap[RoleType.seer] = new ModelRole(
+        roleType: RoleType.seer,
+        image: "images/assets_images_roles_png_icon_seer.png",
+        description: "flil tchouf role ta3 wahed",
+        msg: "Select a player to view their role");
+
+    players.add(new ModelPlayer(name: "Salim", role: null));
+    players.add(new ModelPlayer(name: "Redoune", role: null));
+    players.add(new ModelPlayer(name: "Hakim", role: null));
+    //players.add(new ModelPlayer(name: "Jalil", role: modelRoleMap[RoleType.witch]));
+    //players.add(new ModelPlayer(name: "Nadir", role: modelRoleMap[RoleType.werewolf]));
+    //players.add(new ModelPlayer(name: "Bebe fuck", role: modelRoleMap[RoleType.werewolf]));
+  }
+
 
   void initGame() {
     print(players.length);
@@ -39,21 +102,24 @@ class GameEngine {
       player.role = roles[randValue];
       roles.removeAt(randValue);
     });
+    print(players.length);
+    print(roles.length);
+    
   }
-
+/*
   void next() {
-    if (playerIndex == -1) switchDayNight();
+    if (_playerIndex == -1) switchDayNight();
 
-    playerIndex++;
+    _playerIndex++;
 
-    if (playerIndex == players.length) {
+    if (_playerIndex == players.length) {
       processHistoric();
-      playerIndex = -1;
+      _playerIndex = -1;
       return;
     }
 
     if (isItNight) {
-      ModelPlayer currentplayer = players[playerIndex];
+      ModelPlayer currentplayer = players[_playerIndex];
       if (currentplayer.role.roleType == RoleType.werewolf) {
         print(currentplayer.name +
             " your role is " +
@@ -129,6 +195,6 @@ class GameEngine {
   void processHistoric() {
     historic.forEach((historic) {});
   }
-
+*/
 
 }

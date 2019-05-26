@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../model/model_game.dart';
 import '../game.dart';
 
@@ -15,6 +16,7 @@ class _UIroleState extends State<UIrole> {
   int value = 0;
   @override
   Widget build(BuildContext context) {
+    final GameEngine gameEngine = Provider.of<GameEngine>(context);
     return Container(
       decoration: new BoxDecoration(border: new Border.all(color: Colors.grey)),
       child: Column(
@@ -24,7 +26,7 @@ class _UIroleState extends State<UIrole> {
             height: 48.0,
             width: 48.0,
           ),
-          Text(widget.role.toString().replaceFirst("RoleType.", "")),
+          Text(ModelRole(widget.role).name),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -33,15 +35,13 @@ class _UIroleState extends State<UIrole> {
                   onTap: () {
                     setState(() {
                       if (this.value > 0) {
-                        for( final role in getIt<GameEngine>().roles)
-                        {
-                          if(role.roleType == widget.role)
-                          {
-                            getIt<GameEngine>().roles.remove(role);
-                            break ;
+                        for (final role in gameEngine.roles) {
+                          if (role.roleType == widget.role) {
+                            gameEngine.roles.remove(role);
+                            break;
                           }
                         }
-                                                  
+
                         this.value--;
                       }
                     });
@@ -50,16 +50,10 @@ class _UIroleState extends State<UIrole> {
               Text(this.value.toString()),
               CircleButton(
                   onTap: () {
-                    print(this.value);
-                    print(getIt<GameEngine>().players.length);
-                    print(getIt<GameEngine>().roles.length);
-                    if (getIt<GameEngine>().players.length ==
-                        getIt<GameEngine>().roles.length) return;
-                    if (this.value < getIt<GameEngine>().players.length) {
+                    if (gameEngine.players.length == gameEngine.roles.length) return;
+                    if (this.value < gameEngine.players.length) {
                       setState(() {
-                        getIt<GameEngine>()
-                            .roles
-                            .add(new ModelRole(roleType: widget.role));
+                        gameEngine.roles.add(new ModelRole(roleType: widget.role));
                         this.value++;
                       });
                     }

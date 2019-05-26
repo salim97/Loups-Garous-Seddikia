@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import '../model/model_game.dart';
 import '../game.dart';
 import 'c_grid_players.dart';
 
 class CdayVote extends StatefulWidget {
-  List<ModelPlayer> players = [];
-  final VoidCallback callBackDone;
-  CdayVote({this.callBackDone}){
-      players = getIt<GameEngine>().players;
-  }
 
   @override
   _CdayVoteState createState() => _CdayVoteState();
@@ -16,42 +13,44 @@ class CdayVote extends StatefulWidget {
 
 class _CdayVoteState extends State<CdayVote> {
   int _index = 0;
-
   int _currentIndex = -1;
+  List<ModelPlayer> players = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-  
-  }
-  
-  _reset()
-  {
-    widget.players.forEach( (player) => player.vote = 0 );
-     setState(() {
-_index = 0;
-        _currentIndex = -1;
-     });
+    
   }
 
-  incrementIndex() {
-    if (_index + 1 < widget.players.length)
+  _reset() {
+    players.forEach((player) => player.vote = 0);
+    setState(() {
+      _index = 0;
+      _currentIndex = -1;
+    });
+  }
+
+  incrementIndex(BuildContext context) {
+    if (_index + 1 < players.length)
+      //Provider.of<GameEngine>(context).players.elementAt(_index).
       setState(() {
         _index++;
         _currentIndex = -1;
       });
     else {
-      widget.callBackDone();
+      Provider.of<GameEngine>(context).gamestate = GameState.morning_result;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-      if(_index >= widget.players.length)
-      {
-        print("/*------------------------------------------*/");
-        _reset();
-      }
+    if (_index >= players.length) {
+      print("/*------------------------------------------*/");
+      _reset();
+    }
+    players = List.from(Provider.of<GameEngine>(context).players);
+    //players.removeAt(_index);
     return new Container(
         decoration: new BoxDecoration(color: Colors.pinkAccent),
         child: ListView(
@@ -71,7 +70,7 @@ _index = 0;
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      widget.players[_index].name + " votes",
+                      players[_index].name + " votes",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.white,
@@ -92,7 +91,7 @@ _index = 0;
                 ],
               ),
             ),
-            CgridPlayers(skipplayer: widget.players[_index], callBackDone: () => incrementIndex()),
+            CgridPlayers(skipplayer: players[_index], callBackDone: () => incrementIndex(context)),
           ],
         ));
   }

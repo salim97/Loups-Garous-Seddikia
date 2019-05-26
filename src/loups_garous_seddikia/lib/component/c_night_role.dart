@@ -115,7 +115,7 @@ class Page02 extends StatelessWidget {
   Widget build(BuildContext context) {
       return new Container(
       decoration: new BoxDecoration(
-        color: Colors.pinkAccent;
+        color: Colors.pinkAccent
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

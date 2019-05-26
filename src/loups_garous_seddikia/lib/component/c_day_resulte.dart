@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../model/model_game.dart';
 import '../game.dart';
-import 'c_grid_players.dart';
 
 class CdayResulte extends StatefulWidget {
-  final VoidCallback callBackDone;
-
   ModelPlayer dead = null;
-  CdayResulte({this.callBackDone});
 
   @override
   _CdayResulteState createState() => _CdayResulteState();
 }
 
 class _CdayResulteState extends State<CdayResulte> {
+  List<ModelPlayer> players = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -21,8 +19,6 @@ class _CdayResulteState extends State<CdayResulte> {
   }
 
   update() {
-    List<ModelPlayer> players = [];
-    players = getIt<GameEngine>().players;
     int max = 0;
     int numberOfmaxFound = 0;
     players.forEach((player) {
@@ -43,14 +39,15 @@ class _CdayResulteState extends State<CdayResulte> {
       });
       players.remove(widget.dead);
     }
-  }
 
-  _done() {
-    widget.callBackDone();
+    players.forEach((player) {
+      player.vote = 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    players = Provider.of<GameEngine>(context).players;
     update();
 
     if (widget.dead == null)
@@ -157,7 +154,7 @@ class _CdayResulteState extends State<CdayResulte> {
                   ),
                 ),
                 color: Colors.blue,
-                onPressed: () => _done(),
+                onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.morning_splash,
               ),
             ),
           ],

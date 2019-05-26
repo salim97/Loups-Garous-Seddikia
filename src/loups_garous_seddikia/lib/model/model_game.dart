@@ -1,21 +1,29 @@
 enum RoleType { werewolf, seer, witch, hunter }
 enum ActionType { kill, heal, protect, bind, see, vote }
+enum GameState {
+  night_splash,
+  night_actions,
+  night_result,
+  morning_splash,
+  morning_vote,
+  morning_result,
+}
 
 Map<RoleType, ModelRole> modelRoleMap = new Map();
 
 class ModelRole {
   RoleType roleType;
   String description;
-  String msg ;
+  String msg;
   String image;
-  int count  ;
-  ModelRole({
-    this.roleType,
-    this.description= "",
-    this.image = "",
-    this.count = 0,
-    this.msg
-  });
+  String name;
+  int count;
+  ModelRole({this.roleType, this.description = "", this.image = "", this.count = 0, this.msg}) {
+    image = modelRoleMap[roleType].image;
+    description = modelRoleMap[roleType].description;
+    msg = modelRoleMap[roleType].msg;
+    name = roleType.toString().replaceFirst("RoleType.", "");
+  }
 }
 
 class ModelPlayer {
@@ -31,20 +39,13 @@ class ModelPlayer {
   });
 }
 
-
 class ModelHistoric {
   final ModelPlayer currentPlayer;
   final ModelPlayer targetPlayer;
   final ActionType action;
 
-  ModelHistoric({
-    this.currentPlayer,
-    this.targetPlayer,
-    this.action
-  });
-
+  ModelHistoric({this.currentPlayer, this.targetPlayer, this.action});
 }
-
 
 /*
 class VoteAction {

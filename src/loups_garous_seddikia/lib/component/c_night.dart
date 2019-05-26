@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loups_garous_seddikia/component/c_grid_players.dart';
-import '../game.dart';
 
 class Cnight extends StatefulWidget {
   final VoidCallback readyClicked;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../model/model_game.dart';
 import '../game.dart';
 
@@ -13,7 +14,7 @@ class CgridPlayers extends StatefulWidget {
 
 class _CgridPlayersState extends State<CgridPlayers> {
   List<ModelPlayer> players = [];
-
+  bool hideVoteNumber = false;
   _onSelected(int index) {
     setState(() => widget.selectedIndex = index);
   }
@@ -22,7 +23,7 @@ class _CgridPlayersState extends State<CgridPlayers> {
     if (widget.selectedIndex < 0) return;
     players[widget.selectedIndex].vote++;
 
-    getIt<GameEngine>().players.forEach((player) {
+    Provider.of<GameEngine>(context).players.forEach((player) {
       if (player == players[widget.selectedIndex]) {
         player = players[widget.selectedIndex];
       }
@@ -33,7 +34,8 @@ class _CgridPlayersState extends State<CgridPlayers> {
 
   @override
   Widget build(BuildContext context) {
-    players = List<ModelPlayer>.from(getIt<GameEngine>().players);
+    hideVoteNumber = Provider.of<GameEngine>(context).hide_number_of_votes ;
+    players = List<ModelPlayer>.from(Provider.of<GameEngine>(context).players);
     players.remove(widget.skipplayer);
     return Column(
       children: <Widget>[
@@ -69,7 +71,7 @@ class _CgridPlayersState extends State<CgridPlayers> {
                             fontSize: 18,
                           )),
                     )),
-                players[index].vote != 0
+                players[index].vote != 0 && hideVoteNumber != true
                     ? new Positioned(
                         right: 45,
                         bottom: 30,

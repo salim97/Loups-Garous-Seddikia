@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../game.dart';
 import '../model/model_game.dart';
 import 'ui_roles.dart';
@@ -12,16 +13,11 @@ class UIplayers extends StatefulWidget {
 
 class _UIplayersState extends State<UIplayers> {
   List<ModelPlayer> players = [];
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    GameEngine gameEngine = getIt<GameEngine>();
-    players = gameEngine.players;
-  }
 
   @override
   Widget build(BuildContext context) {
+    final GameEngine gameEngine = Provider.of<GameEngine>(context);
+    players = gameEngine.players;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
