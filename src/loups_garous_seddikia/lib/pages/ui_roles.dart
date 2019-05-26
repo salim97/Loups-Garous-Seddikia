@@ -11,8 +11,6 @@ class UIroles extends StatefulWidget {
 }
 
 class _UIrolesState extends State<UIroles> {
-  List<ModelRole> roles = [];
-
   listItem(ModelRole player) {
     return ListTile(
       leading: Icon(Icons.tag_faces),
@@ -23,7 +21,7 @@ class _UIrolesState extends State<UIroles> {
 
   @override
   Widget build(BuildContext context) {
-
+    print( Provider.of<GameEngine>(context).roles.length );
     return Scaffold(
       appBar: AppBar(
         title: new Text("Roles"),
@@ -31,6 +29,13 @@ class _UIrolesState extends State<UIroles> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
+              if(Provider.of<GameEngine>(context).roles.length != Provider.of<GameEngine>(context).players.length)
+                {
+                  // Text(Provider.of<GameEngine>(context).players.length.toString()+" players and "
+                  //+ Provider.of<GameEngine>(context).roles.length.toString()+" roles, error : add more roles"),
+                  return ;
+                }
+
               Provider.of<GameEngine>(context).initGame();
               Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new UIconfig()));
             },
