@@ -17,6 +17,7 @@ class _UIroleState extends State<UIrole> {
   @override
   Widget build(BuildContext context) {
     final GameEngine gameEngine = Provider.of<GameEngine>(context);
+
     return Container(
       decoration: new BoxDecoration(border: new Border.all(color: Colors.grey)),
       child: Column(
@@ -26,7 +27,7 @@ class _UIroleState extends State<UIrole> {
             height: 48.0,
             width: 48.0,
           ),
-          Text(ModelRole(widget.role).name),
+          Text(ModelRole(roleType: widget.role).name),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -18,10 +18,11 @@ class ModelRole {
   String image;
   String name;
   int count;
-  ModelRole({this.roleType, this.description = "", this.image = "", this.count = 0, this.msg}) {
-    image = modelRoleMap[roleType].image;
-    description = modelRoleMap[roleType].description;
-    msg = modelRoleMap[roleType].msg;
+
+  ModelRole({this.roleType, this.description = "", this.image = "", this.count = 0, this.msg = ""}) {
+    if (image.isEmpty) image = modelRoleMap[roleType].image;
+    if (description.isEmpty) description = modelRoleMap[roleType].description;
+    if (msg.isEmpty) msg = modelRoleMap[roleType].msg;
     name = roleType.toString().replaceFirst("RoleType.", "");
   }
 }

@@ -5,12 +5,33 @@ import 'package:provider/provider.dart';
 
 import './pages/ui_game.dart';
 import 'game.dart';
+import 'model/model_game.dart';
 
 void main() {
-  GameEngine gameEngine = new GameEngine();
+  //GameEngine gameEngine = new GameEngine();
 
-  getIt.registerSingleton<GameEngine>(gameEngine);
-
+  //getIt.registerSingleton<GameEngine>(gameEngine);
+  modelRoleMap[RoleType.werewolf] = new ModelRole(
+        roleType: RoleType.werewolf,
+        image: "images/alpha_werewolf.png",
+        description: "ydiro vote binathom w yakatlo wahed",
+        msg: "Select a player to kill? The other werewolves will see your vote. if the vote is tied, a random victim will be selected.");
+    modelRoleMap[RoleType.hunter] = new ModelRole(
+        roleType: RoleType.hunter,
+        image: "images/assets_images_roles_png_icon_hunter.png",
+        description: "kiymout yaktol m3ah wahed",
+        msg: "In case you die this round, select a player you would like to kill");
+    modelRoleMap[RoleType.witch] = new ModelRole(
+        roleType: RoleType.witch,
+        image: "images/assets_images_roles_png_icon_witch.png",
+        description: "taktol khatra, thayi felil khatra",
+        msg: "Use the poison to kill a player, or the elixir to save the victim of the werewolves this night. you have each potion only once");
+    modelRoleMap[RoleType.seer] = new ModelRole(
+        roleType: RoleType.seer,
+        image: "images/assets_images_roles_png_icon_seer.png",
+        description: "flil tchouf role ta3 wahed",
+        msg: "Select a player to view their role");
+        
   runApp(MyApp());
 }
 

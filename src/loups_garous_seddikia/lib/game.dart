@@ -57,27 +57,6 @@ class GameEngine extends ChangeNotifier {
   }
 
   void initRandomData() {
-    modelRoleMap[RoleType.werewolf] = new ModelRole(
-        roleType: RoleType.werewolf,
-        image: "images/alpha_werewolf.png",
-        description: "ydiro vote binathom w yakatlo wahed",
-        msg: "Select a player to kill? The other werewolves will see your vote. if the vote is tied, a random victim will be selected.");
-    modelRoleMap[RoleType.hunter] = new ModelRole(
-        roleType: RoleType.hunter,
-        image: "images/assets_images_roles_png_icon_hunter.png",
-        description: "kiymout yaktol m3ah wahed",
-        msg: "In case you die this round, select a player you would like to kill");
-    modelRoleMap[RoleType.witch] = new ModelRole(
-        roleType: RoleType.witch,
-        image: "images/assets_images_roles_png_icon_witch.png",
-        description: "taktol khatra, thayi felil khatra",
-        msg: "Use the poison to kill a player, or the elixir to save the victim of the werewolves this night. you have each potion only once");
-    modelRoleMap[RoleType.seer] = new ModelRole(
-        roleType: RoleType.seer,
-        image: "images/assets_images_roles_png_icon_seer.png",
-        description: "flil tchouf role ta3 wahed",
-        msg: "Select a player to view their role");
-
     players.add(new ModelPlayer(name: "Salim", role: null));
     players.add(new ModelPlayer(name: "Redoune", role: null));
     players.add(new ModelPlayer(name: "Hakim", role: null));

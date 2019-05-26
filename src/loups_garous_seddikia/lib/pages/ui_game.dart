@@ -31,7 +31,6 @@ class _UIgameState extends State<UIgame> {
   @override
   Widget build(BuildContext context) {
     final GameEngine gameEngine = Provider.of<GameEngine>(context);
-    print("--------------- _UIgameState") ;
     return WillPopScope(
       onWillPop: _onBackPressed,
           child: new Scaffold(
