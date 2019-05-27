@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import '../model/model_game.dart';
 import '../game.dart';
 
-class CdayResulte extends StatefulWidget {
+class CdayResult extends StatefulWidget {
   ModelPlayer dead = null;
 
   @override
-  _CdayResulteState createState() => _CdayResulteState();
+  _CdayResultState createState() => _CdayResultState();
 }
 
-class _CdayResulteState extends State<CdayResulte> {
+class _CdayResultState extends State<CdayResult> {
   List<ModelPlayer> players = [];
   @override
   void initState() {
@@ -154,10 +154,11 @@ class _CdayResulteState extends State<CdayResulte> {
                   ),
                 ),
                 color: Colors.blue,
-                onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.morning_splash,
+                onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.night_splash
               ),
             ),
           ],
         ));
+  
   }
 }

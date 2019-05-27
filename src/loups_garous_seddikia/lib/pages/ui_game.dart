@@ -31,6 +31,14 @@ class _UIgameState extends State<UIgame> {
   @override
   Widget build(BuildContext context) {
     final GameEngine gameEngine = Provider.of<GameEngine>(context);
+    return new Scaffold(
+        
+          appBar: new AppBar(
+            title: new Text('Loups Garous Seddikia'),
+              leading: new Container(),),
+          body: gameEngine.currentWidget
+    );
+    /*
     return WillPopScope(
       onWillPop: _onBackPressed,
           child: new Scaffold(
@@ -48,7 +56,7 @@ class _UIgameState extends State<UIgame> {
               CdayResulte(callBackDone: readyclickedDay,) ,
             ]),*/
           ),
-    );
+    );*/
   }
 
   Future<bool> _onBackPressed() {

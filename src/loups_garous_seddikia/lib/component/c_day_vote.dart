@@ -16,13 +16,6 @@ class _CdayVoteState extends State<CdayVote> {
   int _currentIndex = -1;
   List<ModelPlayer> players = [];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    
-  }
-
   _reset() {
     players.forEach((player) => player.vote = 0);
     setState(() {
@@ -94,5 +87,6 @@ class _CdayVoteState extends State<CdayVote> {
             CgridPlayers(skipplayer: players[_index], callBackDone: () => incrementIndex(context)),
           ],
         ));
+  
   }
 }

@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 
 import './model/model_game.dart';
 import 'component/c_day.dart';
-import 'component/c_day_resulte.dart';
+import 'component/c_day_result.dart';
 import 'component/c_day_vote.dart';
+import 'component/c_night.dart';
+import 'component/c_night_result.dart';
+import 'component/c_night_role.dart';
 
 GetIt getIt = new GetIt();
 
@@ -45,7 +48,7 @@ class GameEngine extends ChangeNotifier {
   bool reveal_role_when_player_dies = true;
 
   GameEngine() {
-    gamestate = GameState.morning_splash;
+    gamestate = GameState.night_splash;
 
     initRandomData();
   }
@@ -53,7 +56,10 @@ class GameEngine extends ChangeNotifier {
   void updateCurrentWidget() {
     if (gamestate == GameState.morning_splash) currentWidget =  Cday();
     if (gamestate == GameState.morning_vote) currentWidget = CdayVote();
-    if (gamestate == GameState.morning_result) currentWidget = CdayResulte();
+    if (gamestate == GameState.morning_result) currentWidget = CdayResult();
+    if (gamestate == GameState.night_splash) currentWidget = Cnight();
+    if (gamestate == GameState.night_actions) currentWidget = CnightRole();
+    if (gamestate == GameState.night_result) currentWidget = CnightResult();
   }
 
   void initRandomData() {

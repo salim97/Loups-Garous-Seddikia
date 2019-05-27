@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:loups_garous_seddikia/model/model_game.dart';
+import 'package:provider/provider.dart';
+
+import '../game.dart';
 
 class Cnight extends StatefulWidget {
-  final VoidCallback readyClicked;
-  Cnight({this.readyClicked});
+  Cnight();
   @override
   _CnightState createState() => _CnightState();
 }
@@ -82,7 +85,7 @@ class _CnightState extends State<Cnight> {
                 ),
               ),
               color: Colors.pinkAccent,
-              onPressed: () => widget.readyClicked(),
+              onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.night_actions,
             ),
           ),
           Image.asset(
