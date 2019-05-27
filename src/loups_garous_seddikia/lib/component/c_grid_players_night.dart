@@ -112,8 +112,9 @@ class _CgridPlayersNightState extends State<CgridPlayersNight> {
       ],
     );
   }
-
+ bool disableHeal = false ;
   siwtchButtonForEachRole() {
+   
     if (widget.skipplayer.role.roleType == RoleType.werewolf)
       return Center(
         child: RaisedButton(
@@ -153,5 +154,79 @@ class _CgridPlayersNightState extends State<CgridPlayersNight> {
                 },
         ),
       );
+    if (widget.skipplayer.role.roleType == RoleType.hunter)
+      return Center(
+        child: RaisedButton(
+          child: const Text(
+            'KILL',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          color: Colors.blue,
+          onPressed: widget.selectedIndex == -1
+              ? null
+              : () {
+                  actionList.add(ModelHistoric(currentPlayer: widget.skipplayer, targetPlayer: players[widget.selectedIndex], action: ActionType.bind));
+                  widget.callBackDone();
+                },
+        ),
+      );
+    if (widget.skipplayer.role.roleType == RoleType.witch)
+      return Center(
+        child: Row(
+           mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            RaisedButton(
+              child: const Text(
+                'HEAL',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blue,
+              onPressed: disableHeal == true
+                  ? null
+                  : () {
+                      actionList.add(ModelHistoric(currentPlayer: widget.skipplayer, targetPlayer: players[widget.selectedIndex], action: ActionType.heal));
+                      setState(() {
+                       disableHeal = true ; 
+                      });
+                      //widget.callBackDone();
+                    },
+            ),
+          RaisedButton(
+              child: const Text(
+                'KILL',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blue,
+              onPressed: widget.selectedIndex == -1
+                  ? null
+                  : () {
+                      actionList.add(ModelHistoric(currentPlayer: widget.skipplayer, targetPlayer: players[widget.selectedIndex], action: ActionType.kill));
+                      widget.callBackDone();
+                    },
+            ),
+          RaisedButton(
+              child: const Text(
+                'SKIP',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blue,
+              onPressed:  () {
+                      widget.callBackDone();
+                    },
+            ),
+          
+          ],
+        ),
+      );
+    
   }
 }

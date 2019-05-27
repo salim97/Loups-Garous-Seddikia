@@ -14,16 +14,48 @@ import 'component/c_night_role.dart';
 GetIt getIt = new GetIt();
 
 class GameEngine extends ChangeNotifier {
+  GameEngine() {
+    gamestate = GameState.night_splash;
+
+    initRandomData();
+    /*
+    players[0].role = ModelRole(roleType: RoleType.werewolf);
+    players[1].role = ModelRole(roleType: RoleType.hunter);
+    players[2].role = ModelRole(roleType: RoleType.seer);
+    actionList.add(ModelHistoric(
+        currentPlayer:players[0],
+        targetPlayer: players[1],
+        action: ActionType.kill));
+    actionList.add(ModelHistoric(
+        currentPlayer: players[1],
+        targetPlayer: players[2],
+        action: ActionType.bind));
+
+    actionList.add(ModelHistoric(
+        currentPlayer:players[2],
+        targetPlayer: players[0],
+        action: ActionType.see));
+        */
+  }
+
   List<ModelPlayer> players = [];
   List<ModelRole> roles = [];
   List<ModelHistoric> actionList = [];
-  List<ModelHistoric> historic = [];
 
   Widget _currentWidget;
   Widget get currentWidget => _currentWidget;
   set currentWidget(Widget val) {
     _currentWidget = val;
     notifyListeners();
+  }
+
+  void initRandomData() {
+    players.add(new ModelPlayer(name: "Salim", role: null));
+    players.add(new ModelPlayer(name: "Redoune", role: null));
+    players.add(new ModelPlayer(name: "Hakim", role: null));
+    //players.add(new ModelPlayer(name: "Jalil", role: modelRoleMap[RoleType.witch]));
+    //players.add(new ModelPlayer(name: "Nadir", role: modelRoleMap[RoleType.werewolf]));
+    //players.add(new ModelPlayer(name: "Bebe fuck", role: modelRoleMap[RoleType.werewolf]));
   }
 
   GameState _gamestate;
@@ -47,30 +79,14 @@ class GameEngine extends ChangeNotifier {
   bool no_killing_during_the_first_night = true;
   bool reveal_role_when_player_dies = true;
 
-  GameEngine() {
-    gamestate = GameState.night_splash;
-
-    initRandomData();
-  }
-
   void updateCurrentWidget() {
-    if (gamestate == GameState.morning_splash) currentWidget =  Cday();
+    if (gamestate == GameState.morning_splash) currentWidget = Cday();
     if (gamestate == GameState.morning_vote) currentWidget = CdayVote();
     if (gamestate == GameState.morning_result) currentWidget = CdayResult();
     if (gamestate == GameState.night_splash) currentWidget = Cnight();
     if (gamestate == GameState.night_actions) currentWidget = CnightRole();
     if (gamestate == GameState.night_result) currentWidget = CnightResult();
   }
-
-  void initRandomData() {
-    players.add(new ModelPlayer(name: "Salim", role: null));
-    players.add(new ModelPlayer(name: "Redoune", role: null));
-    players.add(new ModelPlayer(name: "Hakim", role: null));
-    //players.add(new ModelPlayer(name: "Jalil", role: modelRoleMap[RoleType.witch]));
-    //players.add(new ModelPlayer(name: "Nadir", role: modelRoleMap[RoleType.werewolf]));
-    //players.add(new ModelPlayer(name: "Bebe fuck", role: modelRoleMap[RoleType.werewolf]));
-  }
-
 
   void initGame() {
     print(players.length);
@@ -89,7 +105,6 @@ class GameEngine extends ChangeNotifier {
     });
     print(players.length);
     print(roles.length);
-    
   }
 /*
   void next() {
