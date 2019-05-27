@@ -16,8 +16,6 @@ class _CnightResultState extends State<CnightResult> {
   @override
   Widget build(BuildContext context) {
     actionList = Provider.of<GameEngine>(context).actionList;
-       print("/*------------------------------------------*/");
-    print(actionList.length);
 
  
     return Container(
