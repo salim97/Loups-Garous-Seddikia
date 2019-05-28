@@ -7,6 +7,7 @@ import './model/model_game.dart';
 import 'component/c_day.dart';
 import 'component/c_day_result.dart';
 import 'component/c_day_vote.dart';
+import 'component/c_game_result.dart';
 import 'component/c_night.dart';
 import 'component/c_night_result.dart';
 import 'component/c_night_role.dart';
@@ -86,11 +87,15 @@ class GameEngine extends ChangeNotifier {
     if (gamestate == GameState.night_splash) currentWidget = Cnight();
     if (gamestate == GameState.night_actions) currentWidget = CnightRole();
     if (gamestate == GameState.night_result) currentWidget = CnightResult();
+
     if (gamestate == GameState.result) {
+      players.forEach((player) {
+        print(player.role.name);
+      });
       if (gameIsDone())
-        currentWidget = CnightResult();
+        currentWidget = CgameResult();
       else
-        gamestate == GameState.morning_splash;
+        currentWidget = Cday();
     }
   }
 
@@ -113,15 +118,26 @@ class GameEngine extends ChangeNotifier {
     print(roles.length);
   }
 
+  bool wolfWon() {
+    int wolfCount = 0;
+    players.forEach((player) {
+      if (player.role.roleType == RoleType.werewolf) wolfCount++;
+    });
+    if (wolfCount == 0) return false;
+    if ((wolfCount * 2) >= players.length)
+      return true;
+    else
+      return false;
+  }
+
   bool gameIsDone() {
     int wolfCount = 0;
     players.forEach((player) {
       if (player.role.roleType == RoleType.werewolf) wolfCount++;
     });
-    if ((wolfCount * 2) >= players.length)
-      return true;
-    else
-      return false;
+    if (wolfCount == 0) return true;
+
+    return wolfWon();
   }
 /*
   void next() {

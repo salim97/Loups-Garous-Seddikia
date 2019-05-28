@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import '../model/model_game.dart';
 import '../game.dart';
 
-class CnightResult extends StatefulWidget {
+class CgameResult extends StatefulWidget {
   @override
-  _CnightResultState createState() => _CnightResultState();
+  _CgameResultState createState() => _CgameResultState();
 }
 
-class _CnightResultState extends State<CnightResult> {
+class _CgameResultState extends State<CgameResult> {
 
 
   @override
@@ -18,7 +18,7 @@ class _CnightResultState extends State<CnightResult> {
         decoration: new BoxDecoration(color: Colors.pinkAccent),
         child:  Center(
           child: Text(
-                    Provider.of<GameEngine>(context).gameIsDone() ? "Wolf won the game" : "villager",
+                    Provider.of<GameEngine>(context).wolfWon() ? "Wolf won the game" : "Villager won the game",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,

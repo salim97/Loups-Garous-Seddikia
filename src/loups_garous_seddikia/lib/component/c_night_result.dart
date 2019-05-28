@@ -79,7 +79,12 @@ class _CnightResultState extends State<CnightResult> {
                   ),
                 ),
                 color: Colors.blue,
-                onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.result
+                onPressed: () 
+                {
+                  deads.forEach( (dead) => Provider.of<GameEngine>(context).players.remove(dead) ) ;
+                  Provider.of<GameEngine>(context).actionList.clear();
+                  Provider.of<GameEngine>(context).gamestate = GameState.result;
+                }
               ),
             ),
           
