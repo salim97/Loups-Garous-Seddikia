@@ -15,7 +15,7 @@ class _ShowRoleState extends State<ShowRole> {
       body: Container(
         decoration: new BoxDecoration(color: Colors.pinkAccent),
         child: ListView(
-          shrinkWrap: true,
+          //shrinkWrap:true,
           children: <Widget>[
             Row(
               children: <Widget>[

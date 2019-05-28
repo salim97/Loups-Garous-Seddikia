@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loups_garous_seddikia/model/model_game.dart';
 import 'package:provider/provider.dart';
 import '../game.dart';
 
@@ -31,6 +32,10 @@ class _UIgameState extends State<UIgame> {
   @override
   Widget build(BuildContext context) {
     final GameEngine gameEngine = Provider.of<GameEngine>(context);
+    Provider.of<GameEngine>(context).players.forEach( (player) {
+      print(player.name + " "+ player.role.name);
+    });
+
     return new Scaffold(
         
           appBar: new AppBar(

@@ -16,14 +16,30 @@ class _CgameResultState extends State<CgameResult> {
 
     return Container(
         decoration: new BoxDecoration(color: Colors.pinkAccent),
-        child:  Center(
-          child: Text(
-                    Provider.of<GameEngine>(context).wolfWon() ? "Wolf won the game" : "Villager won the game",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                    ),
-                  ),
+        child:  Column(
+          children: <Widget>[
+            Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Center(
+                                  child: Image.asset(
+                                    Provider.of<GameEngine>(context).wolfWon() ? "images/alpha_werewolf.png" : "images/assets_images_roles_png_icon_villager.png",
+                                    height: 100,
+                                    width: 100,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+         
+            Center(
+              child: Text(
+                        Provider.of<GameEngine>(context).wolfWon() ? "Wolf won the game" : "Villager won the game",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                        ),
+                      ),
+            ),
+          ],
         ));
   }
 

@@ -112,7 +112,7 @@ class _CgridPlayersNightState extends State<CgridPlayersNight> {
       ],
     );
   }
- bool disableHeal = false ;
+ 
   siwtchButtonForEachRole() {
    
     if (widget.skipplayer.role.roleType == RoleType.werewolf)
@@ -186,13 +186,13 @@ class _CgridPlayersNightState extends State<CgridPlayersNight> {
                 ),
               ),
               color: Colors.blue,
-              onPressed: disableHeal == true
+              onPressed:  widget.skipplayer.disableHeal == true
                   ? null
                   : () {
-                      actionList.add(ModelHistoric(currentPlayer: widget.skipplayer, targetPlayer: players[widget.selectedIndex], action: ActionType.heal));
-                      setState(() {
-                       disableHeal = true ; 
-                      });
+                      actionList.add(ModelHistoric(currentPlayer: widget.skipplayer, targetPlayer: players[0], action: ActionType.heal));
+                        setState(() {
+                          widget.skipplayer.disableHeal = true ; 
+                        }); 
                       //widget.callBackDone();
                     },
             ),

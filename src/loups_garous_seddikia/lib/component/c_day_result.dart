@@ -147,19 +147,21 @@ class _CdayResultState extends State<CdayResult> {
             ),
             Center(
               child: RaisedButton(
-                child: const Text(
-                  'DONE',
-                  style: TextStyle(
-                    color: Colors.white,
+                  child: const Text(
+                    'DONE',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                color: Colors.blue,
-                onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.night_splash
-              ),
+                  color: Colors.blue,
+                  onPressed: () {
+                    Provider.of<GameEngine>(context).players.remove(widget.dead);
+                    Provider.of<GameEngine>(context).deads.add(widget.dead);
+                    Provider.of<GameEngine>(context).actionList.clear();
+                    Provider.of<GameEngine>(context).gamestate = GameState.night_splash;
+                  }),
             ),
-          
           ],
         ));
-  
   }
 }

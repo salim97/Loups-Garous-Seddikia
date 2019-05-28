@@ -7,7 +7,6 @@ enum GameState {
   morning_splash,
   morning_vote,
   morning_result,
-  result
 }
 
 Map<RoleType, ModelRole> modelRoleMap = new Map();
@@ -33,6 +32,7 @@ class ModelPlayer {
   ModelRole role;
   bool isDead;
   int vote;
+  bool disableHeal = false ;
   ModelPlayer({
     this.name,
     this.role,

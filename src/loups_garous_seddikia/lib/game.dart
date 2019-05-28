@@ -42,6 +42,7 @@ class GameEngine extends ChangeNotifier {
   List<ModelPlayer> players = [];
   List<ModelRole> roles = [];
   List<ModelHistoric> actionList = [];
+  List<ModelPlayer> deads = [];
 
   Widget _currentWidget;
   Widget get currentWidget => _currentWidget;
@@ -81,6 +82,14 @@ class GameEngine extends ChangeNotifier {
   bool reveal_role_when_player_dies = true;
 
   void updateCurrentWidget() {
+   
+   
+      if (deads.length != 0 && gameIsDone())
+      {
+        currentWidget = CgameResult();
+        return ;
+      }
+
     if (gamestate == GameState.morning_splash) currentWidget = Cday();
     if (gamestate == GameState.morning_vote) currentWidget = CdayVote();
     if (gamestate == GameState.morning_result) currentWidget = CdayResult();
@@ -88,15 +97,7 @@ class GameEngine extends ChangeNotifier {
     if (gamestate == GameState.night_actions) currentWidget = CnightRole();
     if (gamestate == GameState.night_result) currentWidget = CnightResult();
 
-    if (gamestate == GameState.result) {
-      players.forEach((player) {
-        print(player.role.name);
-      });
-      if (gameIsDone())
-        currentWidget = CgameResult();
-      else
-        currentWidget = Cday();
-    }
+   
   }
 
   void initGame() {

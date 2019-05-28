@@ -14,6 +14,7 @@ class _CnightResultState extends State<CnightResult> {
 
   update() {
     werewolf();
+    deads = deads.toSet().toList();
     actionList.forEach((action) {
       if (action.currentPlayer.role.roleType == RoleType.witch) {
         if (action.action == ActionType.heal) deads.removeLast();
@@ -21,6 +22,7 @@ class _CnightResultState extends State<CnightResult> {
         if (action.action == ActionType.kill) deads.add(action.targetPlayer);
       }
     });
+
     ModelPlayer tmp = null;
     deads.forEach((dead) {
       if (dead.role.roleType == RoleType.hunter) {
@@ -82,8 +84,10 @@ class _CnightResultState extends State<CnightResult> {
                 onPressed: () 
                 {
                   deads.forEach( (dead) => Provider.of<GameEngine>(context).players.remove(dead) ) ;
+                  deads.forEach( (dead) => Provider.of<GameEngine>(context).deads.add(dead) ) ;
+                  Provider.of<GameEngine>(context).players.forEach( (p) =>  print(p.name));
                   Provider.of<GameEngine>(context).actionList.clear();
-                  Provider.of<GameEngine>(context).gamestate = GameState.result;
+                  Provider.of<GameEngine>(context).gamestate = GameState.morning_splash;
                 }
               ),
             ),
@@ -171,6 +175,7 @@ class _CnightResultState extends State<CnightResult> {
     int numberOfmaxFound = 0;
 
     actionList.forEach((action) {
+      
       if (action.targetPlayer.vote > max) {
         max = action.targetPlayer.vote;
       }
