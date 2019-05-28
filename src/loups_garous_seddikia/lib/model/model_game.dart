@@ -7,6 +7,7 @@ enum GameState {
   morning_splash,
   morning_vote,
   morning_result,
+  result
 }
 
 Map<RoleType, ModelRole> modelRoleMap = new Map();

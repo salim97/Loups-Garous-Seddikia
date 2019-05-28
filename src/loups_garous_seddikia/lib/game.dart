@@ -11,7 +11,7 @@ import 'component/c_night.dart';
 import 'component/c_night_result.dart';
 import 'component/c_night_role.dart';
 
-GetIt getIt = new GetIt();
+//TODO: khali players list kima rahi , mais player kiymout dir isdead true w sna3 method ta3tik gi lirahom hayin
 
 class GameEngine extends ChangeNotifier {
   GameEngine() {
@@ -74,7 +74,7 @@ class GameEngine extends ChangeNotifier {
   }
 
   // global config
-  bool hide_number_of_votes = true;
+  bool hide_number_of_votes = false;
   bool players_can_skip_voting = true;
   bool no_killing_during_the_first_night = true;
   bool reveal_role_when_player_dies = true;
@@ -86,6 +86,12 @@ class GameEngine extends ChangeNotifier {
     if (gamestate == GameState.night_splash) currentWidget = Cnight();
     if (gamestate == GameState.night_actions) currentWidget = CnightRole();
     if (gamestate == GameState.night_result) currentWidget = CnightResult();
+    if (gamestate == GameState.result) {
+      if (gameIsDone())
+        currentWidget = CnightResult();
+      else
+        gamestate == GameState.morning_splash;
+    }
   }
 
   void initGame() {
@@ -105,6 +111,17 @@ class GameEngine extends ChangeNotifier {
     });
     print(players.length);
     print(roles.length);
+  }
+
+  bool gameIsDone() {
+    int wolfCount = 0;
+    players.forEach((player) {
+      if (player.role.roleType == RoleType.werewolf) wolfCount++;
+    });
+    if ((wolfCount * 2) >= players.length)
+      return true;
+    else
+      return false;
   }
 /*
   void next() {

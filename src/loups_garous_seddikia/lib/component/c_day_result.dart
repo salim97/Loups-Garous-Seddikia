@@ -157,6 +157,7 @@ class _CdayResultState extends State<CdayResult> {
                 onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.night_splash
               ),
             ),
+          
           ],
         ));
   

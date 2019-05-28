@@ -35,7 +35,7 @@ class _UIgameState extends State<UIgame> {
         
           appBar: new AppBar(
             title: new Text('Loups Garous Seddikia'),
-              leading: new Container(),),
+             ),
           body: gameEngine.currentWidget
     );
     /*

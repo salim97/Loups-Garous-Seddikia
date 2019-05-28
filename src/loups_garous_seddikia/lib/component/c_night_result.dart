@@ -39,6 +39,8 @@ class _CnightResultState extends State<CnightResult> {
   Widget build(BuildContext context) {
     actionList = Provider.of<GameEngine>(context).actionList;
     update();
+    deads = deads.toSet().toList();
+
     return Container(
         decoration: new BoxDecoration(color: Colors.pinkAccent),
         child: Column(
@@ -68,6 +70,19 @@ class _CnightResultState extends State<CnightResult> {
             */
               },
             ),
+            Center(
+              child: RaisedButton(
+                child: const Text(
+                  'DONE',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                color: Colors.blue,
+                onPressed: () => Provider.of<GameEngine>(context).gamestate = GameState.result
+              ),
+            ),
+          
           ],
         ));
   }
@@ -138,11 +153,14 @@ class _CnightResultState extends State<CnightResult> {
       action.targetPlayer.vote = 0;
     });
 
+
+  
     actionList.forEach((action) {
       if (action.currentPlayer.role.roleType == RoleType.werewolf) {
         action.targetPlayer.vote++;
       }
     });
+    
 
     int max = 0;
     int numberOfmaxFound = 0;
@@ -154,7 +172,7 @@ class _CnightResultState extends State<CnightResult> {
     });
 
     actionList.forEach((action) {
-      if (action.targetPlayer.vote == max) {
+      if ( action.currentPlayer.role.roleType == RoleType.werewolf && action.targetPlayer.vote == max) {
         numberOfmaxFound++;
       }
     });
